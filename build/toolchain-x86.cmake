@@ -1,0 +1,4 @@
+
+set( UBIE_APP_PLATFORM "x86")
+
+

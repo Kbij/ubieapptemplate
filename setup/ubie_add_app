@@ -1,0 +1,30 @@
+#!/bin/bash
+
+scriptroot="`dirname \"$0\"`"          # relative path
+scriptroot="`( cd \"$scriptroot\" && pwd )`"  # absolutized and normalized
+if [ -z "$scriptroot" ] ; then
+  # error; for some reason, the path is not accessible
+  # to the script (e.g. permissions re-evaled after suid)
+  exit 1  # fail
+fi
+
+echo -e "\n\nStart generation of a new Ubie application\n"
+
+read -p "Please enter the Name of your application : " appname
+read -p "Please enter a 3 character prefix for the functionblock ids in your app: " prefix
+$scriptroot/../ubiesdk/Ubie/bin/AppGenerator -logtostderr -name $appname -output $scriptroot/../. -prefix $prefix
+
+
+cd $scriptroot/../build/Debug-x86
+cmake ../..
+
+cd $scriptroot/../build/Release-x86
+cmake ../..
+
+cd $scriptroot/../build/Debug-arm
+cmake ../..
+
+cd $scriptroot/../build/Release-arm
+cmake ../..
+
+cd $scriptroot

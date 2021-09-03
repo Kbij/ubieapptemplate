@@ -1,0 +1,14 @@
+#!/bin/bash
+
+scriptroot="`dirname \"$0\"`"          # relative path
+scriptroot="`( cd \"$scriptroot\" && pwd )`"  # absolutized and normalized
+if [ -z "$scriptroot" ] ; then
+  # error; for some reason, the path is not accessible
+  # to the script (e.g. permissions re-evaled after suid)
+  exit 1  # fail
+fi
+
+$scriptroot/bootstrap
+$scriptroot/ubie_add_app
+
+cp $scriptroot/README.md $scriptroot/..

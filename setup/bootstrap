@@ -1,0 +1,53 @@
+#!/bin/bash
+echo "Initialising Ubie SDK"
+
+cwd="`dirname \"$0\"`"          # relative path
+cwd="`( cd \"$cwd\" && pwd )`"  # absolutized and normalized
+if [ -z "$cwd" ] ; then
+  # error; for some reason, the path is not accessible
+  # to the script (e.g. permissions re-evaled after suid)
+  exit 1  # fail
+fi
+
+echo "Setup Ubie Sdk git submodule"
+git submodule init $cwd/..
+git submodule update $cwd/..
+
+mkdir -p $cwd/../sysroot
+
+echo "Extract sysroot x86"
+tar -xf $cwd/../ubiesdk/Ubie/sys-x86.tar.gz -C $cwd/../sysroot
+
+echo "Extract sysroot arm"
+tar -xf $cwd/../ubiesdk/Ubie/sys-arm.tar.gz -C $cwd/../sysroot
+
+cd $cwd/../ubiesdk/toolchain
+mkdir -p $cwd/../toolchain
+tar -xf gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux.tar.xz -C $cwd/../toolchain
+
+#Debug
+cd $cwd/../build
+mkdir -p Debug-x86
+mkdir -p Debug-arm
+mkdir -p Release-x86
+mkdir -p Release-arm
+
+cd $cwd/../build/Debug-x86
+cp ../toolchain-x86.cmake .
+cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=toolchain-x86.cmake ../..
+
+cd $cwd/../build/Debug-arm
+cp ../toolchain-arm.cmake .
+cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=toolchain-arm.cmake ../..
+
+
+#Release
+cd $cwd/../build/Release-x86
+cp ../toolchain-x86.cmake .
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=toolchain-x86.cmake ../..
+
+
+cd $cwd/../build/Release-arm
+cp ../toolchain-arm.cmake .
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=toolchain-arm.cmake ../..
+
