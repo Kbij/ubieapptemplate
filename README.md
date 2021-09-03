@@ -7,7 +7,7 @@ This repository is to be used as a template for a new Ubie application. The new 
 When you start with a fresh Ubuntu installation, four steps should be completed:
 
 * Install git by running the following command: ```sudo apt-get install git```
-* clone this repository by running the following: ```git clone https://bitbucket.org/qbus_sw/ubieapptemplate.git```
+* clone this repository by running the following: ```git clone https://github.com/Kbij/ubieapptemplate.git```
 * Enter the git repository: ```cd ubieapptemplate```
 * Setup your Ubuntu environment by running (as root): ```sudo ./setup/setup_ubuntu```
 * Once all required software is installed, run: ```./setup/ubie_bootstrap```
