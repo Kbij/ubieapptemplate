@@ -1,0 +1,3 @@
+[submodule "ubiesdk"]
+	path = ubiesdk
+	url = https://github.com/Kbij/ubiesdk.git
