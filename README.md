@@ -44,7 +44,7 @@ Your new application can be found in the following directory: bin/Debug-x86
 ### Unit testing ###
 
 A Unit test project, with some unit test examples can be found in the <App Name\>Test folder.
-
+Information regarding google test can be found here : <http://google.github.io/googletest/>
 ### Visual Studio Code ###
 
 Your Ubuntu installation contains a copy of Visual Studio Code. Start Code by running: ```code```, and open the Workspace "ubie.code-workspace" file.
